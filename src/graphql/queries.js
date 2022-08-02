@@ -4,6 +4,7 @@ query {
   posts {
     author {
       name
+      slug
       avatar {
         url
       }
@@ -24,6 +25,20 @@ query{
     id
     name
     slug
+    avatar {
+      url
+    }
+  }
+}
+`;
+
+const GET_AUTHORS_ALL=gql`
+query{
+  authors {
+    id
+    name
+    slug
+    field
     avatar {
       url
     }
@@ -84,4 +99,4 @@ query getPostComments(
   }
 }
 `;
-export {GET_BLOGS_INFO,GET_AUTHORS_INFO , GET_AUTHOR_INFO , GET_POST_INFO , GET_POST_COMMENTS};
+export {GET_BLOGS_INFO,GET_AUTHORS_INFO , GET_AUTHOR_INFO , GET_POST_INFO , GET_POST_COMMENTS , GET_AUTHORS_ALL};

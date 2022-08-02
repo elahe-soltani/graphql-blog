@@ -16,9 +16,10 @@ const CardEL = ({title , slug , coverPhoto , author}) => {
         <Card sx={{boxShadow:"rgba(0,0,0,0.1) 0px 4px 12px" , borderRadius:4}}>
             {author &&  <CardHeader
              avatar={<Avatar src={author.avatar.url}  sx={{marginLeft:2}}/>}
-             title={<Typography component="p" variant="p" color="text.secondary" >
-                
+             title={<Typography component="p" variant="p" color="text.secondary"  >
+                <Link to={`/authors/${author.slug}`} style={{textDecoration:"none" , color:"#757575"}}>
                 {author.name}
+                </Link>
              </Typography>}
              />}
             <CardMedia

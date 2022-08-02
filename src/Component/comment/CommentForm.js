@@ -1,20 +1,37 @@
-import React,{useState} from 'react';
+import React,{useState , useEffect} from 'react';
 import { Grid, TextField, Typography , Button } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { SEND_COMMENT } from '../../graphql/mutation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { validate } from './validate';
 
 const CommentForm = ({slug}) => {
-    const [name , setName] = useState("");
-    const [email , setEmail] = useState("");
-    const [text , setText] = useState("");
+    const [dinput , setDinput] = useState({
+        name:"" ,
+        email:"" ,
+        text:"",
+    });
     const [pressed , setPressed] =useState(false);
     const [sendComment ,{loading , data }]= useMutation(SEND_COMMENT,{
-        variables:{name , email , text , slug},
+        variables:{name : dinput.name , email : dinput.email , text :dinput.text, slug},
     });
+    const [error , setError ]=useState({});
+    const [touched , setTouched ]=useState({});
+    useEffect(()=>{
+        setError(validate(dinput))
+        console.log(error)
+    },[dinput , touched]);
+
+
+    const changeHandler = event=> {
+        setDinput({...dinput,[event.target.name] : event.target.value} )
+    }
+    const focusHandler= event => {
+        setTouched({...touched , [event.target.name]:true})
+    }
     const sendHandler= ()=>{
-        if(name && email && text){
+        if(dinput.name && dinput.email && dinput.text){
             sendComment();
             setPressed(true);
         }else {
@@ -49,29 +66,38 @@ const CommentForm = ({slug}) => {
                 label="نام"
                 variant='outlined'
                 sx={{width:"100%"}}
-                value={name}
-                onChange={(e)=>setName(e.target.value)}
+                name="name"
+                value={dinput.name}
+                onChange={changeHandler}
+                onFocus={focusHandler}
                  />
+                {error.name && touched.name &&  <span> {error.name}</span>}
             </Grid>
             <Grid item xs={12} m={2}>
                 <TextField
                 label="ایمیل"
                 variant='outlined'
                 sx={{width:"100%"}}
-                value={email}
-                onChange={(e)=>setEmail(e.target.value)}
+                name="email"
+                value={dinput.email}
+                onChange={changeHandler}
+                onFocus={focusHandler}
                  />
+                 {error.email && touched.email && <span> {error.email}</span>}
             </Grid>
             <Grid item xs={12} m={2}>
                 <TextField
                 label="متن کامنت"
                 variant='outlined'
                 sx={{width:"100%"}}
-                value={text}
-                onChange={(e)=>setText(e.target.value)}
+                name ="text"
+                value={dinput.text}
+                onChange={changeHandler}
                 multiline
                 minRows={4}
+                onFocus={focusHandler}
                  />
+                 {error.text && touched.text && <span> {error.text}</span>}
             </Grid>
             <Grid item xs={12} m={2}>
                {loading? (

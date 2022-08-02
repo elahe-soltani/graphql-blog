@@ -17,6 +17,7 @@ const CardEL = ({title , slug , coverPhoto , author}) => {
             {author &&  <CardHeader
              avatar={<Avatar src={author.avatar.url}  sx={{marginLeft:2}}/>}
              title={<Typography component="p" variant="p" color="text.secondary" >
+                
                 {author.name}
              </Typography>}
              />}

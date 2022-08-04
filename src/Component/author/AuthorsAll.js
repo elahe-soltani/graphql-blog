@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import Loader from '../shared/Loader';
-import { Card, Grid , CardMedia, Avatar, Typography, CardHeader, CardContent, CardActions, Divider, Button} from '@mui/material';
+import { Card, Grid , CardMedia, Typography,  CardContent, CardActions, Divider, Button} from '@mui/material';
 import { GET_AUTHORS_ALL } from '../../graphql/queries';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +11,10 @@ const AuthorsAll = () => {
     if (errors) return <h3>Errors...</h3>
     console.log(data)
     return (
-       <Grid container spacing={5} p={8}>
+       <Grid container spacing={5} paddingX={8}>
+         <Grid item xs={12} mt={0} >
+         <Typography component="h3" variant="h4" fontWeight={700}>نویسنده ها</Typography>
+         </Grid>
         {data.authors.map((author)=>(
             <Grid item xs={12} sm={6} md={4} key={author.id} >
                 <Card sx={{boxShadow:"rgba(0,0,0,0.1) 0px 4px 12px" , borderRadius:4}} >

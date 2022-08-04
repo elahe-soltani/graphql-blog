@@ -7,31 +7,30 @@ import 'react-toastify/dist/ReactToastify.css';
 import { validate } from './validate';
 
 const CommentForm = ({slug}) => {
-    const [dinput , setDinput] = useState({
+    const [input , setInput] = useState({
         name:"" ,
         email:"" ,
         text:"",
     });
     const [pressed , setPressed] =useState(false);
     const [sendComment ,{loading , data }]= useMutation(SEND_COMMENT,{
-        variables:{name : dinput.name , email : dinput.email , text :dinput.text, slug},
+        variables:{name : input.name , email : input.email , text :input.text, slug},
     });
     const [error , setError ]=useState({});
     const [touched , setTouched ]=useState({});
     useEffect(()=>{
-        setError(validate(dinput))
-        console.log(error)
-    },[dinput , touched]);
+        setError(validate(input))
+    },[input , touched]);
 
 
     const changeHandler = event=> {
-        setDinput({...dinput,[event.target.name] : event.target.value} )
+        setInput({...input,[event.target.name] : event.target.value} )
     }
     const focusHandler= event => {
         setTouched({...touched , [event.target.name]:true})
     }
     const sendHandler= ()=>{
-        if(dinput.name && dinput.email && dinput.text){
+        if(input.name && input.email && input.text){
             sendComment();
             setPressed(true);
         }else {
@@ -67,11 +66,13 @@ const CommentForm = ({slug}) => {
                 variant='outlined'
                 sx={{width:"100%"}}
                 name="name"
-                value={dinput.name}
+                value={input.name}
                 onChange={changeHandler}
                 onFocus={focusHandler}
+                error={error.name && touched.name}
+                helperText={error.name && touched.name && error.name}
                  />
-                {error.name && touched.name &&  <span> {error.name}</span>}
+              
             </Grid>
             <Grid item xs={12} m={2}>
                 <TextField
@@ -79,11 +80,12 @@ const CommentForm = ({slug}) => {
                 variant='outlined'
                 sx={{width:"100%"}}
                 name="email"
-                value={dinput.email}
+                value={input.email}
                 onChange={changeHandler}
                 onFocus={focusHandler}
+                error={error.email && touched.email}
+                helperText={error.email && touched.email && error.email}
                  />
-                 {error.email && touched.email && <span> {error.email}</span>}
             </Grid>
             <Grid item xs={12} m={2}>
                 <TextField
@@ -91,13 +93,14 @@ const CommentForm = ({slug}) => {
                 variant='outlined'
                 sx={{width:"100%"}}
                 name ="text"
-                value={dinput.text}
+                value={input.text}
                 onChange={changeHandler}
                 multiline
                 minRows={4}
                 onFocus={focusHandler}
+                error={error.text && touched.text }
+                helperText={error.text && touched.text && error.text}
                  />
-                 {error.text && touched.text && <span> {error.text}</span>}
             </Grid>
             <Grid item xs={12} m={2}>
                {loading? (

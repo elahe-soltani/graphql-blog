@@ -5,6 +5,20 @@ import { SEND_COMMENT } from '../../graphql/mutation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { validate } from './validate';
+//rtl
+import rtlPlugin from "stylis-plugin-rtl";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+
+//rtl
+const cacheRtl = createCache({
+    key: "muirtl",
+    stylisPlugins: [rtlPlugin],
+  });
+const rtlTheme = createTheme({ direction: "rtl" });
+
 
 const CommentForm = ({slug}) => {
     const [input , setInput] = useState({
@@ -48,6 +62,9 @@ const CommentForm = ({slug}) => {
     }
     
     return (
+        <CacheProvider value={cacheRtl}>
+        <ThemeProvider theme={rtlTheme}>
+          <CssBaseline />
        <Grid container 
         sx={{
             boxShadow :"rgba(0,0,0,0.1) 0px 4px 12px",
@@ -111,6 +128,8 @@ const CommentForm = ({slug}) => {
             </Grid>
             <ToastContainer />
        </Grid>
+       </ThemeProvider>
+       </CacheProvider>
     );
 };
 

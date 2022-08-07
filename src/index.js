@@ -18,7 +18,7 @@ root.render(
     
     <BrowserRouter>
     <ThemeProvider theme={theme}>
-      <App />
+       <App />
     </ThemeProvider>
     </BrowserRouter>
   </ApolloProvider>

@@ -15,7 +15,6 @@ const HomePage = () => {
                     <Authors />
                 </Grid>
                 <Grid item xs={12} md={9} mt={4}>
-                   
                     <Typography component="h3" variant="h5" fontWeight={700} mb={3} >
                         وبلاگ ها
                         </Typography>

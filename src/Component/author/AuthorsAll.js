@@ -9,7 +9,6 @@ const AuthorsAll = () => {
     const {loading , data , errors} = useQuery(GET_AUTHORS_ALL);
     if (loading) return  <Loader />
     if (errors) return <h3>Errors...</h3>
-    console.log(data)
     return (
        <Grid container spacing={5} paddingX={8}>
          <Grid item xs={12} mt={0} >

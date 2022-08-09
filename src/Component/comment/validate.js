@@ -10,7 +10,7 @@ export const validate = data => {
 
     if (!data.email){
         error.email = "ایمیل را وارد کنید";
-    } else if (! /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ .test(data.email)){
+    } else if (! /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(data.email)){
         error.email="ادرس ایمیل نامعتبر است"
     } else {
         delete error.email;
